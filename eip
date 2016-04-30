@@ -88,7 +88,8 @@ eip_start() {
 eip_stop() {
     eip_monitor
     if [ $? =  $OCF_SUCCESS ]; then
-        /usr/bin/aws ec2 disassociate-address --allocation-id ${OCF_RESKEY_allocation_id}
+    	association_id=$(/usr/bin/aws ec2 describe-addresses --allocation-ids ${OCF_RESKEY_allocation_id} --output text | awk '{print$3}')
+        /usr/bin/aws ec2 disassociate-address --association-id ${association_id}
     fi
     return $OCF_SUCCESS
 }
