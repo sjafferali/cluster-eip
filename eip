@@ -95,7 +95,7 @@ eip_stop() {
 }
 
 eip_monitor() {
-    mon=`/usr/bin/aws ec2 describe-addresses --allocation-id ${OCF_RESKEY_allocation_id} --filters "Name=instance-id,Values=${instance_id}" --output json | grep ${instance_id} | wc -l`
+    mon=`/usr/bin/aws ec2 describe-addresses --allocation-id ${OCF_RESKEY_allocation_id} --filters "Name=instance-id,Values=${instance_id}" --output text |  wc -l`
     if [ $mon -ne 0  ]; then
         return $OCF_SUCCESS
     fi
