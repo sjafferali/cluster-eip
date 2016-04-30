@@ -106,8 +106,8 @@ eip_validate() {
     return $OCF_SUCCESS
 }
 
-instance_id=`wget -q -O - http://169.254.169.254/latest/meta-data/instance-id`
-interface_id=$(/usr/bin/aws ec2 describe-instances --instance-ids $instance_id --output text | awk '/NETWORKINTERFACES\s*hcluster/ {print$4}')
+instance_id=$(wget -q -O - http://169.254.169.254/latest/meta-data/instance-id)
+interface_id=$(/usr/bin/aws ec2 describe-instances --instance-ids ${instance_id} --output text | awk '/NETWORKINTERFACES\s*hcluster/ {print$4}')
 
 case $__OCF_ACTION in
 meta-data)	meta_data
