@@ -95,8 +95,8 @@ eip_stop() {
 }
 
 eip_monitor() {
-    mon=`/usr/bin/aws ec2 describe-addresses --allocation-id ${OCF_RESKEY_allocation_id} --filters "Name=instance-id,Values=${instance_id}" --output text |  wc -l`
-    if [ $mon -ne 0  ]; then
+    wget -q -O - http://169.254.169.254/latest/meta-data/network/interfaces/macs/$MAC_ADDR/public-ipv4s > /dev/null
+    if [ $? -eq 0  ]; then
         return $OCF_SUCCESS
     fi
     return $OCF_NOT_RUNNING
