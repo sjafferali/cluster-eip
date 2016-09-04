@@ -78,10 +78,6 @@ END
 }
 
 eip_start() {
-    eip_monitor
-    if [ $? =  $OCF_SUCCESS ]; then
-	return $OCF_SUCCESS
-    fi
     /usr/bin/aws ec2 associate-address --allocation-id ${OCF_RESKEY_allocation_id} --network-interface-id ${interface_id} --allow-reassociation
 }
 
